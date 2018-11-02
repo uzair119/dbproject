@@ -5,7 +5,9 @@
 		$pass=$_POST['pass'];
 		$sid=$_POST['sid'];
 		$privilege=$_POST['privilege'];
-		
-		mysqli_query($conn,"UPDATE USERS_13115 SET PASSWORD='$pass', SID = '$sid', PRIVILEGE = $privilege WHERE UID ='$id'");
+		if($sid == '')
+			mysqli_query($conn,"UPDATE USERS_13115 SET PASSWORD='$pass', SID = NULL, PRIVILEGE = $privilege WHERE UID ='$id'");
+		else
+			mysqli_query($conn,"UPDATE USERS_13115 SET PASSWORD='$pass', SID = '$sid', PRIVILEGE = $privilege WHERE UID ='$id'");
 	}
 ?>

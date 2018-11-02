@@ -149,8 +149,13 @@ if(!isset($_SESSION['user_session']))
 			$('body').removeClass('modal-open');
 			$('.modal-backdrop').remove();
 			$upass=$('#upass'+$uid).val();
+			if($upass == '')
+				alert("Password cannot be empty");
+			else
+			{
 			$usid=$('#usid'+$uid).val();
 			$uprivilege=$('#uprivilege'+$uid).val();
+			//alert($uid +" " +$upass + " " + $usid +" " +$uprivilege );
 			$.ajax({
 					type: "POST",
 					url: "update.php",
@@ -165,6 +170,7 @@ if(!isset($_SESSION['user_session']))
 						show();
 					}
 				});
+		}
 		});
 	
 	});
