@@ -13,7 +13,17 @@
 		<div class="modal-body">
 			ID: <input type="text" value="<?php echo $nrow['UID']; ?>" id="uid<?php echo $urow['UID']; ?>" class="form-control">
 			PASSWORD: <input type="password" id="upass<?php echo $urow['UID']; ?>" class="form-control">
-			SID: <input type="text" value="<?php echo $nrow['SID']; ?>" id="usid<?php echo $urow['UID']; ?>" class="form-control">
+			SALESPERSON ID:<?php $sql = "SELECT * FROM SALESPERSONS_13115";
+								$result = mysqli_query($conn, $sql);
+								?>
+							<select  type = "text" id = "usid<?php echo $urow['UID']; ?>" value = "<?php echo $nrow['SID']; ?>" class = "form-control">
+							<option value= "">NOT ASSIGNED</option>
+							<?php
+								while ($row = mysqli_fetch_array($result)) {
+    							echo "<option value='" . $row['SID'] ."'>" . $row['SID'] ."</option>";
+									}
+								echo "</select>";
+								?>
 			PRIVILEGE: <select type="text" value="<?php if($nrow['PRIVILEGE'] == 0) echo 'User'; else echo 'Admin'; ?>" id="uprivilege<?php echo $urow['UID']; ?>" class="form-control">
   									<option value="0">User</option>
   									<option value="1">Admin</option>

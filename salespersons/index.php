@@ -20,6 +20,7 @@ if(!isset($_SESSION['user_session']))
   <li><a class="active" href="../salespersons/index.php">Salespersons</a></li>
   <li><a href="../products/index.php">Products</a></li>
   <li><a href="../users/index.php">Users</a></li>
+  <li><a href="../invoices/index.php">Invoices</a></li>
   <li style="float:right"><a id = "logout-btn" href="../logout.php">Logout</a></li>
   <li style="float:right"><a>Logged in as <?php echo $_SESSION['user_session'];?></a></li>
 </ul>
@@ -53,8 +54,17 @@ if(!isset($_SESSION['user_session']))
 						</div>
 						<div class = "form-group">
 							<label>CUSTOMER ID</label>
-							<input type  = "text" id = "cid" class = "form-control">
-						</div>
+							<?php $sql = "SELECT * FROM CUSTOMERS_13115";
+								$result = mysqli_query($conn, $sql);
+
+							echo '<select  type = "text" id = "cid" class = "form-control" name="CUSTOMER ID">';
+							echo "<option value= ''>NOT ASSIGNED</option>";
+								while ($row = mysqli_fetch_array($result)) {
+    							echo "<option value='" . $row['CID'] ."'>" . $row['CID'] ."</option>";
+									}
+								echo "</select>";
+								?>
+							</div>
 						<div class = "form-group">
 							<button type = "button" id="addnew" class = "btn btn-primary"><span class = "glyphicon glyphicon-plus"></span> Add</button>
 						</div>
@@ -83,6 +93,7 @@ if(!isset($_SESSION['user_session']))
 			$sname=$('#sname').val();
 			$cphone=$('#cphone').val();
 			$cid=$('#cid').val();
+			$('#addnew').html('Adding..');
 			$.ajax({
 					type: "POST",
 					url: "addnew.php",
@@ -93,7 +104,11 @@ if(!isset($_SESSION['user_session']))
 						cid: $cid,
 						add: 1,
 					},
-					success: function(){
+					success: function(response){
+						$obj = response;
+						if($obj != "")
+        					alert($obj);
+						$('#addnew').html('Add');
 						show();
 					}
 				});
@@ -104,16 +119,22 @@ if(!isset($_SESSION['user_session']))
 		//DELETE
 		$(document).on('click', '.delete', function(){
 			$id=$(this).val();
+			$(this).html('Deleting..');
 				$.ajax({
 					type: "POST",
 					url: "delete.php",
 					data: {
 						id: $id,
-						sid: $sid,
 						del: 1,
 					},
-					success: function(){
-						show();
+					success: function(response){
+						$obj = response;
+						if($obj != "")
+						{
+        					alert($obj);
+        					$(this).html('Delete');
+						}
+        				show();
 					}
 				});
 		});

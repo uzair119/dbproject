@@ -8,6 +8,7 @@
 		$size=$_POST['size'];
 		$price=$_POST['price'];
 				
-		mysqli_query($conn,"insert into PRODUCTS_13115 values ('$pcode', '$brand','$type','$shade','$size',$price)");
+		if(!mysqli_query($conn,"insert into PRODUCTS_13115 values ('$pcode', '$brand','$type','$shade','$size',$price)"))
+			echo 'Failed to add. Make sure product code is unique';
 	}
 ?>

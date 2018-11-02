@@ -20,6 +20,7 @@ if(!isset($_SESSION['user_session']))
   <li><a href="../salespersons/index.php">Salespersons</a></li>
   <li><a href="../products/index.php">Products</a></li>
   <li><a href="../users/index.php">Users</a></li>
+  <li><a href="../invoices/index.php">Invoices</a></li>
   <li style="float:right"><a id = "logout-btn" href="../logout.php">Logout</a></li>
   <li style="float:right"><a>Logged in as <?php echo $_SESSION['user_session'];?></a></li>
 </ul>
@@ -98,6 +99,7 @@ if(!isset($_SESSION['user_session']))
 			$address=$('#address').val();
 			$area=$('#area').val();
 			$coord=$('#coord').val();	
+			$('#addnew').html('Adding..');
 				$.ajax({
 					type: "POST",
 					url: "addnew.php",
@@ -112,7 +114,11 @@ if(!isset($_SESSION['user_session']))
 						coord: $coord,
 						add: 1,
 					},
-					success: function(){
+					success: function(response){
+						$obj = response;
+						if($obj != "")
+        					alert($obj);
+						$('#addnew').html('Add');
 						show();
 					}
 				});
@@ -123,6 +129,7 @@ if(!isset($_SESSION['user_session']))
 		//DELETE
 		$(document).on('click', '.delete', function(){
 			$id=$(this).val();
+			$(this).html('Deleting..');
 				$.ajax({
 					type: "POST",
 					url: "delete.php",
@@ -130,8 +137,14 @@ if(!isset($_SESSION['user_session']))
 						id: $id,
 						del: 1,
 					},
-					success: function(){
-						show();
+					success: function(response){
+						$obj = response;
+						if($obj != "")
+						{
+        					alert($obj);
+        					$(this).html('Delete');
+						}
+        				show();
 					}
 				});
 		});

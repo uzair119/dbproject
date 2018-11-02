@@ -20,6 +20,7 @@ if(!isset($_SESSION['user_session']))
   <li><a href="../salespersons/index.php">Salespersons</a></li>
   <li><a href="../products/index.php">Products</a></li>
   <li><a class = "active" href="../users/index.php">Users</a></li>
+  <li><a href="../invoices/index.php">Invoices</a></li>
   <li style="float:right"><a id = "logout-btn" href="../logout.php">Logout</a></li>
   <li style="float:right"><a>Logged in as <?php echo $_SESSION['user_session'];?></a></li>
 </ul>
@@ -49,11 +50,20 @@ if(!isset($_SESSION['user_session']))
 						</div>
 						<div class = "form-group">
 							<label>SALESPERSONS ID</label>
-							<input type  = "text" id = "sid" class = "form-control">
+							<?php $sql = "SELECT * FROM SALESPERSONS_13115";
+								$result = mysqli_query($conn, $sql);
+
+							echo '<select  type = "text" id = "sid" class = "form-control" name="SALESPERSON ID">';
+							echo "<option value= ''>NOT A SALESPERSON</option>";
+								while ($row = mysqli_fetch_array($result)) {
+    							echo "<option value='" . $row['SID'] ."'>" . $row['SID'] ."</option>";
+									}
+								echo "</select>";
+								?>
 						</div>
 						<div class = "form-group">
 							<label>PRIVILEGE</label>
-							<select type  = "text" id = "sid" class = "form-control">
+							<select type  = "text" id = "privilege" class = "form-control">
   									<option value="0">User</option>
   									<option value="1">Admin</option>
   							</select>
@@ -86,6 +96,7 @@ if(!isset($_SESSION['user_session']))
 			$pass=$('#pass').val();
 			$sid=$('#sid').val();
 			$privilege=$('#privilege').val();
+			$('#addnew').html('Adding..');
 				$.ajax({
 					type: "POST",
 					url: "addnew.php",
@@ -96,7 +107,11 @@ if(!isset($_SESSION['user_session']))
 						privilege: $privilege,
 						add: 1,
 					},
-					success: function(){
+					success: function(response){
+						$obj = response;
+						if($obj != "")
+        					alert($obj);
+						$('#addnew').html('Add');
 						show();
 					}
 				});
@@ -107,6 +122,7 @@ if(!isset($_SESSION['user_session']))
 		//DELETE
 		$(document).on('click', '.delete', function(){
 			$id=$(this).val();
+			$(this).html('Deleting..');
 				$.ajax({
 					type: "POST",
 					url: "delete.php",
@@ -114,8 +130,14 @@ if(!isset($_SESSION['user_session']))
 						id: $id,
 						del: 1,
 					},
-					success: function(){
-						show();
+					success: function(response){
+						$obj = response;
+						if($obj != "")
+						{
+        					alert($obj);
+        					$(this).html('Delete');
+						}
+        				show();
 					}
 				});
 		});

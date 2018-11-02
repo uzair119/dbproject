@@ -31,6 +31,7 @@ $row=mysqli_fetch_array($q);
       <a href="./salespersons/index.php" class="w3-button w3-black w3-block w3-hover-dark-grey w3-padding-16">Salespersons</a>
       <a href="./products/index.php" class="w3-button w3-black w3-block w3-hover-brown w3-padding-16">Products</a>
       <a href="./users/index.php" class="w3-button w3-black w3-block w3-hover-green w3-padding-16">Users</a>
+      <a href="./invoices/index.php" class="w3-button w3-black w3-block w3-hover-orange w3-padding-16">Invoices</a>
       <a href="./logout.php" class="w3-button w3-black w3-block w3-hover-red w3-padding-16">Logout</a>
     </div>
   </div>
