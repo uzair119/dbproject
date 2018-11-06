@@ -55,7 +55,7 @@
 			</thead>
 				<tbody>
 					<?php
-						$quser=mysqli_query($conn,"SELECT I.ID, I.INVID, P.BRAND, P.PRICE, I.QUANTITY, I.DISCOUNT, cast((100-I.DISCOUNT)/100*(I.QUANTITY*P.PRICE) as int) AS TOTAL FROM INVOICE_13115 I, PRODUCTS_13115 P WHERE I.INVID = '$invid' AND I.PCODE = P.PCODE");
+						$quser=mysqli_query($conn,"SELECT I.ID, I.INVID, P.BRAND, P.PRICE, I.QUANTITY, I.DISCOUNT, round((100-I.DISCOUNT)/100*(I.QUANTITY*P.PRICE)) AS TOTAL FROM INVOICE_13115 I, PRODUCTS_13115 P WHERE I.INVID = '$invid' AND I.PCODE = P.PCODE");
 						while($urow=mysqli_fetch_array($quser)){
 							?>
 								<tr>
