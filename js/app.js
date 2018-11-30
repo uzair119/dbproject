@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$.ajax({
-		url: "http://localhost/dblocal/data.php",
+		url: "data.php",
 		method: "GET",
 		success: function(data) {
 			console.log(data);
