@@ -1,37 +1,37 @@
 $(document).ready(function(){
 	$.ajax({
-		url: "http://localhost/dblocal/data.php",
+		url: "data2.php",
 		method: "GET",
 		success: function(data) {
 			console.log(data);
-			var item = [];
-			var quantity = [];
+			var cid = [];
+			var amount = [];
 
 			for(var i in data) {
-				item.push(data[i].PCODE);
-				quantity.push(data[i].QUANTITY);
+				cid.push(data[i].CID);
+				amount.push(data[i].TOTAL);
 			}
 
 			var chartdata = {
-				labels: item,
+				labels: cid,
 				datasets : [
 					{
-						label: 'QUANTITY',
-						backgroundColor: 'orange',
+						label: 'AMOUNT SPENT',
+						backgroundColor: ['orange','blue','green','yellow','red','teal','pink'],
 						borderColor: 'rgba(200, 200, 200, 0.75)',
 						hoverBackgroundColor: 'teal',
 						hoverBorderColor: 'rgba(200, 200, 200, 1)',
-						data: quantity
+						data: amount
 					}
 				]
 			};
 
-			var ctx = $("#mycanvas");
+			var ctx = $("#mycanvas2");
 
 			var barGraph = new Chart(ctx, {
-				type: 'bar',
+				type: 'pie',
 				data: chartdata,
-				options: {
+				/*options: {
   					scales: {
     					yAxes: [{
       						scaleLabel: {
@@ -46,7 +46,7 @@ $(document).ready(function(){
       						}
     					}]
   					}     
-				}
+				}*/
 			});
 		},
 		error: function(data) {

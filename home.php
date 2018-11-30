@@ -25,7 +25,7 @@ $row=mysqli_fetch_array($q);
   <div class="w3-full w3-black w3-container w3-center" >
         <div class="w3-padding-64" style = "margin-bottom:-50px"; >
           <?php include('chart.php'); ?>
-
+          <?php include('chart2.html'); ?>
       <h1>Hello! <?php echo $row['UID']; ?></h1>
     </div>
     <div class="w3-padding-10">
