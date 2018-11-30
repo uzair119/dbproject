@@ -5,6 +5,7 @@ if(isset($_SESSION['user_session'])!="")
 {
 	header("Location: home.php");
 }
+
 ?>
 <html>
 <head>
